@@ -1,0 +1,20 @@
+{
+  "id": "hide-empty-journal-categories",
+  "title": "Hide Empty Journal Categories",
+  "description": "Hides journal categories from players when none of their pages is visible to them.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "authors": [
+    {
+      "name": "Alan Gabbianelli"
+    }
+  ],
+  "esmodules": [
+    "hide-empty-journal-categories.js"
+  ],
+  "url": "https://github.com/AlanGabbianelli/fvtt-hide-empty-journal-categories",
+  "bugs": "https://github.com/AlanGabbianelli/fvtt-hide-empty-journal-categories/issues"
+}
