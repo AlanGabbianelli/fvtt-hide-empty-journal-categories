@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Run tests with full coverage
+        run: >-
+          node --test --experimental-test-coverage --test-coverage-include='module/**'
+          --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100
+
+      - name: Check module.json matches the tag
+        run: |
+          ZIP_NAME="$(jq -r .id module.json)-$GITHUB_REF_NAME.zip"
+          DOWNLOAD="https://github.com/$GITHUB_REPOSITORY/releases/download/$GITHUB_REF_NAME/$ZIP_NAME"
+          jq -e --arg tag "$GITHUB_REF_NAME" --arg download "$DOWNLOAD" \
+            '"v" + .version == $tag and .download == $download' module.json || {
+            echo "::error::module.json version and download must match the tag $GITHUB_REF_NAME ($DOWNLOAD)"
+            exit 1
+          }
+          echo "ZIP_NAME=$ZIP_NAME" >> "$GITHUB_ENV"
+
+      - name: Zip the module
+        run: zip -r "$ZIP_NAME" module.json hide-empty-journal-categories.js module README.md CHANGELOG.md LICENSE
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: module.json,${{ env.ZIP_NAME }}
+          allowUpdates: true
