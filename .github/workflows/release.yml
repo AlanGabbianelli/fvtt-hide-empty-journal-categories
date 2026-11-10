@@ -40,4 +40,5 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: module.json,${{ env.ZIP_NAME }}
-          allowUpdates: true
+          artifactErrorsFailBuild: true
+          immutableCreate: true
