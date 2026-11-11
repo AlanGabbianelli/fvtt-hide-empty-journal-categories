@@ -30,5 +30,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "lts/*"
+
       - name: Lint with Biome
         run: npx --yes @biomejs/biome@latest lint --error-on-warnings
