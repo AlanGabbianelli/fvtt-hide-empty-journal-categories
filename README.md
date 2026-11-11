@@ -16,6 +16,13 @@ the GM has hidden all the pages under it.
   a player who owns a page can still pick from every category when editing
   that page.
 
+## Screenshots
+
+|        | Without the module                                                       | With the module                                                    |
+| ------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| Player | ![Player view without the module](screenshots/player_without_module.png) | ![Player view with the module](screenshots/player_with_module.png) |
+| GM     | ![GM view without the module](screenshots/gm_without_module.png)         | ![GM view with the module](screenshots/gm_with_module.png)         |
+
 ## Installation
 
 In Foundry's Add-on Modules tab, choose `Install Module` and paste the manifest
