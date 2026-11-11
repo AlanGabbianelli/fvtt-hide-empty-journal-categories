@@ -1,0 +1,30 @@
+name: Checks
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "lts/*"
+
+      - name: Run tests with full coverage
+        run: >-
+          node --test --experimental-test-coverage --test-coverage-include='module/**'
+          --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Lint with Biome
+        run: npx --yes @biomejs/biome@latest lint --error-on-warnings
